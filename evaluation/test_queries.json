@@ -1,0 +1,62 @@
+[
+  {
+    "query_id": "q01",
+    "query": "What is the effective date of the agreement?",
+    "relevant_chunk_indices": [0, 1],
+    "expected_answer_fragment": "March 1, 2024"
+  },
+  {
+    "query_id": "q02",
+    "query": "Who are the parties in the agreement?",
+    "relevant_chunk_indices": [0],
+    "expected_answer_fragment": "Acme Corporation"
+  },
+  {
+    "query_id": "q03",
+    "query": "What is the termination clause?",
+    "relevant_chunk_indices": [2, 3],
+    "expected_answer_fragment": "30 days written notice"
+  },
+  {
+    "query_id": "q04",
+    "query": "What is the payment amount?",
+    "relevant_chunk_indices": [1],
+    "expected_answer_fragment": "$150,000"
+  },
+  {
+    "query_id": "q05",
+    "query": "What is the governing law jurisdiction?",
+    "relevant_chunk_indices": [1, 2],
+    "expected_answer_fragment": "New York"
+  },
+  {
+    "query_id": "q06",
+    "query": "What is the case or matter number?",
+    "relevant_chunk_indices": [0, 1],
+    "expected_answer_fragment": "2024-CV-0412"
+  },
+  {
+    "query_id": "q07",
+    "query": "What are the software delivery obligations?",
+    "relevant_chunk_indices": [1],
+    "expected_answer_fragment": "June 1, 2024"
+  },
+  {
+    "query_id": "q08",
+    "query": "Who signed the agreement?",
+    "relevant_chunk_indices": [3],
+    "expected_answer_fragment": "John Thompson"
+  },
+  {
+    "query_id": "q09",
+    "query": "What are the confidentiality obligations?",
+    "relevant_chunk_indices": [1, 2],
+    "expected_answer_fragment": "5 years"
+  },
+  {
+    "query_id": "q10",
+    "query": "What is the dispute resolution mechanism?",
+    "relevant_chunk_indices": [2, 3],
+    "expected_answer_fragment": "arbitration"
+  }
+]
