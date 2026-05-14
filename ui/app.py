@@ -8,10 +8,177 @@ import json
 
 API_BASE = "http://localhost:8000/api/v1"
 
-st.set_page_config(page_title="LexDraft", page_icon="⚖️", layout="wide")
+st.set_page_config(
+    page_title="LexDraft", 
+    page_icon="⚖️", 
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
 
-st.title("⚖️ LexDraft — Legal Document AI System")
-st.caption("AI-Powered Document Processing & Grounded Drafting")
+def inject_custom_css():
+    st.markdown("""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    html, body, [class*="css"] {
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* Main App Background (Dark Mode optimization) */
+    .stApp {
+        background: radial-gradient(circle at 50% -20%, #1e1b4b 0%, #0f172a 100%);
+    }
+
+    /* Glassmorphism for metrics */
+    [data-testid="stMetric"] {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        padding: 1.5rem;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+    }
+    
+    [data-testid="stMetric"]:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
+        background: rgba(255, 255, 255, 0.06);
+    }
+
+    /* Metric Labels & Values */
+    [data-testid="stMetricLabel"] p {
+        color: #94a3b8 !important;
+        font-size: 0.95rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    [data-testid="stMetricValue"] {
+        color: #f8fafc !important;
+        font-weight: 700;
+        font-size: 2.2rem;
+    }
+
+    /* Primary buttons with vibrant gradients */
+    [data-testid="baseButton-primary"] {
+        background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+        color: white !important;
+        border: none;
+        border-radius: 10px;
+        padding: 0.6rem 1.5rem;
+        font-weight: 600;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.39);
+        letter-spacing: 0.02em;
+    }
+
+    [data-testid="baseButton-primary"]:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+        background: linear-gradient(135deg, #4f46e5 0%, #9333ea 100%);
+    }
+    
+    [data-testid="baseButton-primary"]:active {
+        transform: translateY(0px);
+    }
+
+    /* File uploader styling */
+    [data-testid="stFileUploadDropzone"] {
+        background: rgba(255, 255, 255, 0.02);
+        border: 2px dashed rgba(99, 102, 241, 0.3);
+        border-radius: 16px;
+        transition: all 0.3s ease;
+    }
+    [data-testid="stFileUploadDropzone"]:hover {
+        background: rgba(99, 102, 241, 0.05);
+        border-color: rgba(99, 102, 241, 0.8);
+    }
+
+    /* Tab styling */
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 16px;
+        background-color: transparent;
+        padding-bottom: 8px;
+    }
+
+    .stTabs [data-baseweb="tab"] {
+        border-radius: 8px 8px 0 0;
+        padding: 12px 24px;
+        background: transparent;
+        border: none;
+        color: #94a3b8;
+        transition: color 0.2s ease;
+    }
+
+    .stTabs [aria-selected="true"] {
+        color: #f8fafc;
+        background: transparent;
+    }
+    
+    .stTabs [data-baseweb="tab-highlight"] {
+        background-color: #a855f7;
+        height: 3px;
+        border-radius: 3px 3px 0 0;
+    }
+
+    /* Text area and inputs */
+    .stTextArea textarea, .stTextInput input, .stSelectbox > div > div {
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.2);
+        color: #f8fafc;
+        transition: all 0.2s ease;
+    }
+    
+    .stTextArea textarea:focus, .stTextInput input:focus, .stSelectbox > div > div:focus-within {
+        border-color: #a855f7;
+        box-shadow: 0 0 0 1px #a855f7;
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    /* Success/Info/Warning alerts with glassmorphism */
+    [data-testid="stAlert"] {
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(8px);
+        color: #f8fafc;
+    }
+
+    /* Markdown text */
+    .stMarkdown p {
+        color: #cbd5e1;
+        line-height: 1.6;
+    }
+
+    /* Headers */
+    h1 {
+        background: -webkit-linear-gradient(45deg, #818cf8, #c084fc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 800 !important;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.5rem !important;
+    }
+    h2, h3 {
+        color: #f8fafc !important;
+        font-weight: 600 !important;
+        letter-spacing: -0.01em;
+    }
+
+    /* Hide default streamlit menu */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {background: transparent !important;}
+    </style>
+    """, unsafe_allow_html=True)
+
+inject_custom_css()
+
+st.title("⚖️ LexDraft")
+st.markdown("<h3 style='color: #94a3b8; font-weight: 400; margin-top: -1rem; margin-bottom: 2rem;'>AI-Powered Legal Document Processing & Grounded Drafting</h3>", unsafe_allow_html=True)
 
 # Session state initialisation
 if "doc_id" not in st.session_state:
