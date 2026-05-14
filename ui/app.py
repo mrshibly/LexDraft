@@ -19,10 +19,11 @@ def start_backend():
     if is_port_open():
         return True
 
+    import sys
     # Port 8000 is not listening, so start the backend
     with open("backend.log", "w") as log_file:
         subprocess.Popen(
-            ["python", "-m", "uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"],
+            [sys.executable, "-m", "uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"],
             stdout=log_file,
             stderr=subprocess.STDOUT
         )
