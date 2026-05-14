@@ -295,7 +295,18 @@ with tab1:
                         st.error(f"❌ Error: {result.get('detail', {}).get('message', 'Unknown error')}")
 
                 except httpx.ConnectError:
-                    st.error("❌ Cannot connect to API server. Run: `uvicorn api.main:app --reload`")
+                    import os
+                    log_tail = ""
+                    if os.path.exists("backend.log"):
+                        with open("backend.log", "r") as f:
+                            lines = f.readlines()
+                            log_tail = "".join(lines[-20:])
+                    
+                    err_msg = "❌ Cannot connect to API server."
+                    if log_tail:
+                        err_msg += f"\n\n**Backend Crash Logs:**\n```text\n{log_tail}\n```"
+                        
+                    st.error(err_msg)
                 except Exception as e:
                     st.error(f"❌ Error: {e}")
 
@@ -365,7 +376,18 @@ with tab2:
                         st.error(f"❌ Error: {result.get('detail', {}).get('message', 'Unknown error')}")
 
                 except httpx.ConnectError:
-                    st.error("❌ Cannot connect to API server.")
+                    import os
+                    log_tail = ""
+                    if os.path.exists("backend.log"):
+                        with open("backend.log", "r") as f:
+                            lines = f.readlines()
+                            log_tail = "".join(lines[-20:])
+                    
+                    err_msg = "❌ Cannot connect to API server."
+                    if log_tail:
+                        err_msg += f"\n\n**Backend Crash Logs:**\n```text\n{log_tail}\n```"
+                        
+                    st.error(err_msg)
                 except Exception as e:
                     st.error(f"❌ Error: {e}")
     else:
