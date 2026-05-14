@@ -53,175 +53,151 @@ st.set_page_config(
 def inject_custom_css():
     st.markdown("""
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
     html, body, [class*="css"] {
         font-family: 'Inter', sans-serif;
     }
 
+    /* Modern SaaS Background */
     .stApp {
-        background: radial-gradient(circle at 20% 0%, #1e1b4b 0%, #0f172a 100%);
+        background-color: #09090b;
+        background-image: 
+            radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+            radial-gradient(at 50% 0%, hsla(225,39%,30%,0.1) 0, transparent 50%);
     }
-    
-    /* Sidebar styling */
-    [data-testid="stSidebar"] {
-        background-color: #0f172a;
-        border-right: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    
-    [data-testid="stSidebarNav"] {display: none;}
 
-
-    /* Glassmorphism for metrics */
+    /* Cleaner Metrics */
     [data-testid="stMetric"] {
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        border-radius: 16px;
-        padding: 1.5rem;
-        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
-        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+        background: #18181b;
+        border: 1px solid #27272a;
+        border-radius: 12px;
+        padding: 1rem;
+        transition: border-color 0.2s ease;
     }
     
     [data-testid="stMetric"]:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
-        background: rgba(255, 255, 255, 0.06);
+        border-color: #3f3f46;
     }
 
-    /* Metric Labels & Values */
     [data-testid="stMetricLabel"] p {
-        color: #94a3b8 !important;
-        font-size: 0.95rem;
+        color: #a1a1aa !important;
+        font-size: 0.8rem;
         font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
     }
     [data-testid="stMetricValue"] {
-        color: #f8fafc !important;
-        font-weight: 700;
-        font-size: 2.2rem;
+        color: #fafafa !important;
+        font-weight: 600;
+        font-size: 1.8rem;
     }
 
-    /* Primary buttons with vibrant gradients */
+    /* Minimalist Primary Button */
     [data-testid="baseButton-primary"] {
-        background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
-        color: white !important;
+        background: #fafafa;
+        color: #09090b !important;
         border: none;
-        border-radius: 10px;
-        padding: 0.6rem 1.5rem;
-        font-weight: 600;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 0 4px 14px 0 rgba(99, 102, 241, 0.39);
-        letter-spacing: 0.02em;
+        border-radius: 6px;
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+        transition: opacity 0.2s ease;
     }
 
     [data-testid="baseButton-primary"]:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
-        background: linear-gradient(135deg, #4f46e5 0%, #9333ea 100%);
-    }
-    
-    [data-testid="baseButton-primary"]:active {
-        transform: translateY(0px);
+        background: #fafafa;
+        opacity: 0.9;
     }
 
-    /* File uploader styling */
-    [data-testid="stFileUploadDropzone"] {
-        background: rgba(255, 255, 255, 0.02);
-        border: 2px dashed rgba(99, 102, 241, 0.3);
-        border-radius: 16px;
-        transition: all 0.3s ease;
-    }
-    [data-testid="stFileUploadDropzone"]:hover {
-        background: rgba(99, 102, 241, 0.05);
-        border-color: rgba(99, 102, 241, 0.8);
-    }
-
-    /* Tab styling */
+    /* Modern Tabs */
     .stTabs [data-baseweb="tab-list"] {
-        gap: 16px;
-        background-color: transparent;
-        padding-bottom: 8px;
+        gap: 8px;
+        background-color: #18181b;
+        padding: 4px;
+        border-radius: 8px;
+        margin-bottom: 2rem;
     }
 
     .stTabs [data-baseweb="tab"] {
-        border-radius: 8px 8px 0 0;
-        padding: 12px 24px;
+        border-radius: 6px;
+        padding: 8px 16px;
         background: transparent;
-        border: none;
-        color: #94a3b8;
-        transition: color 0.2s ease;
+        color: #a1a1aa;
+        border: none !important;
     }
 
     .stTabs [aria-selected="true"] {
-        color: #f8fafc;
-        background: transparent;
+        background: #27272a !important;
+        color: #fafafa !important;
     }
     
     .stTabs [data-baseweb="tab-highlight"] {
-        background-color: #a855f7;
-        height: 3px;
-        border-radius: 3px 3px 0 0;
+        display: none;
     }
 
-    /* Text area and inputs */
-    .stTextArea textarea, .stTextInput input, .stSelectbox > div > div {
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        background: rgba(0, 0, 0, 0.2);
-        color: #f8fafc;
-        transition: all 0.2s ease;
+    /* Code & Mono elements */
+    code {
+        font-family: 'JetBrains Mono', monospace;
+        background: #27272a !important;
+        color: #d4d4d8 !important;
+        border-radius: 4px;
+        padding: 0.1rem 0.3rem;
+    }
+
+    /* Cards */
+    [data-testid="stVerticalBlock"] > div > div > div > .stMarkdown {
+        margin-bottom: 0;
     }
     
-    .stTextArea textarea:focus, .stTextInput input:focus, .stSelectbox > div > div:focus-within {
-        border-color: #a855f7;
-        box-shadow: 0 0 0 1px #a855f7;
-        background: rgba(0, 0, 0, 0.3);
+    .bento-card {
+        background: #18181b;
+        border: 1px solid #27272a;
+        padding: 1.25rem;
+        border-radius: 8px;
     }
 
-    /* Success/Info/Warning alerts with glassmorphism */
+    /* Alerts */
     [data-testid="stAlert"] {
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(8px);
-        color: #f8fafc;
+        background: #18181b;
+        border: 1px solid #27272a;
+        color: #fafafa;
+        border-radius: 8px;
     }
 
-    /* Markdown text */
-    .stMarkdown p {
-        color: #cbd5e1;
-        line-height: 1.6;
+    /* Success indicator */
+    .stAlert [data-testid="stNotificationContentSuccess"] {
+        color: #22c55e !important;
+    }
+    
+    /* Info indicator */
+    .stAlert [data-testid="stNotificationContentInfo"] {
+        color: #3b82f6 !important;
     }
 
-    /* Headers */
+
     h1 {
-        background: -webkit-linear-gradient(45deg, #818cf8, #c084fc);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-weight: 800 !important;
-        letter-spacing: -0.02em;
-        margin-bottom: 0.5rem !important;
+        color: #fafafa !important;
+        font-weight: 700 !important;
+        letter-spacing: -0.04em;
     }
+    
     h2, h3 {
-        color: #f8fafc !important;
+        color: #fafafa !important;
         font-weight: 600 !important;
-        letter-spacing: -0.01em;
+        letter-spacing: -0.02em;
     }
 
-    /* Hide default streamlit menu */
+    /* Hide Streamlit clutter */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {background: transparent !important;}
     </style>
+
     """, unsafe_allow_html=True)
 
 inject_custom_css()
 
-st.title("⚖️ LexDraft")
-st.markdown("<h3 style='color: #94a3b8; font-weight: 400; margin-top: -1rem; margin-bottom: 2rem;'>AI-Powered Legal Document Processing & Grounded Drafting</h3>", unsafe_allow_html=True)
+st.markdown("<h2 style='font-weight: 700; margin-bottom: 0;'>⚖️ LexDraft</h2>", unsafe_allow_html=True)
+st.markdown("<p style='color: #a1a1aa; font-size: 0.9rem; margin-bottom: 2rem;'>AI-Powered Legal Document Intelligence & Grounded Drafting</p>", unsafe_allow_html=True)
+
 
 # Session state initialisation
 if "doc_id" not in st.session_state:
@@ -231,33 +207,18 @@ if "draft_text" not in st.session_state:
 if "draft_result" not in st.session_state:
     st.session_state.draft_result = None
 
-# --- SIDEBAR NAVIGATION ---
-with st.sidebar:
-    st.markdown("<h2 style='text-align: center; color: #f8fafc; margin-bottom: 2rem;'>⚖️ LexDraft</h2>", unsafe_allow_html=True)
-    
-    selected_page = st.radio(
-        "Navigation",
-        ["📄 Ingestion & OCR", "✍️ Drafting Lab", "🔍 Review & Learning", "📊 Dashboard"],
-        label_visibility="collapsed"
-    )
-    
-    st.divider()
-    
-    # System info in sidebar
-    try:
-        health = httpx.get(f"{API_BASE}/health", timeout=2.0)
-        status_color = "green" if health.status_code == 200 else "orange"
-        st.markdown(f"**System Status:** <span style='color: {status_color}'>● Online</span>", unsafe_allow_html=True)
-    except:
-        st.markdown("**System Status:** <span style='color: red'>● Offline</span>", unsafe_allow_html=True)
-    
-    st.caption("v1.0.4 | Enterprise AI")
+# --- TABS NAVIGATION ---
+tab1, tab2, tab3, tab4 = st.tabs([
+    "📄 Ingestion",
+    "✍️ Drafting",
+    "🔍 Learning",
+    "📊 Dashboard"
+])
 
-# --- MAIN APP ROUTING ---
+# ─── Tab 1: Ingestion & OCR ───
+with tab1:
+    st.markdown("#### Document Ingestion")
 
-# ─── Page 1: Ingestion & OCR ───
-if selected_page == "📄 Ingestion & OCR":
-    st.header("Document Ingestion")
     st.markdown("Upload PDFs, images, or text for automated structure extraction and OCR processing.")
 
 
@@ -295,29 +256,30 @@ if selected_page == "📄 Ingestion & OCR":
                         
                         with col_left:
                             st.markdown("""
-                            <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 16px;">
-                                <h4 style="margin-top: 0; color: #a855f7;">👤 Primary Parties</h4>
+                            <div style="background: #18181b; border: 1px solid #27272a; padding: 16px; border-radius: 8px;">
+                                <h5 style="margin-top: 0; color: #fafafa; font-size: 0.9rem;">Primary Parties</h5>
                             """, unsafe_allow_html=True)
                             parties = fields.get("parties", [])
                             if parties:
                                 for p in parties:
-                                    st.markdown(f"**{p['name']}** <span style='color: #94a3b8; font-size: 0.8rem;'>— {p['role']}</span>", unsafe_allow_html=True)
+                                    st.markdown(f"<span style='font-size: 0.85rem;'>**{p['name']}**</span> <span style='color: #a1a1aa; font-size: 0.75rem;'>({p['role']})</span>", unsafe_allow_html=True)
                             else:
-                                st.caption("No parties detected.")
+                                st.caption("None detected")
                             st.markdown("</div>", unsafe_allow_html=True)
 
                         with col_right:
                             st.markdown("""
-                            <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 16px;">
-                                <h4 style="margin-top: 0; color: #6366f1;">📜 Key Obligations</h4>
+                            <div style="background: #18181b; border: 1px solid #27272a; padding: 16px; border-radius: 8px;">
+                                <h5 style="margin-top: 0; color: #fafafa; font-size: 0.9rem;">Key Obligations</h5>
                             """, unsafe_allow_html=True)
                             obligations = fields.get("key_obligations", [])
                             if obligations:
                                 for o in obligations:
-                                    st.markdown(f"<p style='font-size: 0.9rem; margin-bottom: 8px; line-height: 1.3;'>• {o}</p>", unsafe_allow_html=True)
+                                    st.markdown(f"<p style='font-size: 0.8rem; color: #d4d4d8; margin-bottom: 4px; line-height: 1.2;'>• {o}</p>", unsafe_allow_html=True)
                             else:
-                                st.caption("No specific obligations extracted.")
+                                st.caption("None extracted")
                             st.markdown("</div>", unsafe_allow_html=True)
+
 
                         # Row 3: Processing Stats
                         st.markdown("---")
@@ -357,10 +319,11 @@ if selected_page == "📄 Ingestion & OCR":
                     st.error(f"❌ Error: {e}")
 
 
-# ─── Page 2: Drafting Lab ───
-elif selected_page == "✍️ Drafting Lab":
-    st.header("Drafting Lab")
+# ─── Tab 2: Drafting Lab ───
+with tab2:
+    st.markdown("#### Drafting Lab")
     st.markdown("Generate citation-backed legal drafts using the grounded retrieval engine.")
+
 
 
     # Fetch document list
@@ -415,14 +378,15 @@ elif selected_page == "✍️ Drafting Lab":
                                 for c in citations:
                                     with st.container():
                                         st.markdown(f"""
-                                        <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 12px; margin-bottom: 12px;">
+                                        <div style="background: #18181b; border: 1px solid #27272a; padding: 12px; border-radius: 8px; margin-bottom: 12px;">
                                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                                                <span style="background: #6366f1; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold; font-size: 0.8rem;">{c['label']}</span>
-                                                <span style="color: #94a3b8; font-size: 0.75rem;">Page {c['page_number']} | Rel: {c['relevance_score']:.2f}</span>
+                                                <span style="background: #fafafa; color: #09090b; padding: 2px 6px; border-radius: 4px; font-weight: 500; font-size: 0.7rem; font-family: 'JetBrains Mono';">{c['label']}</span>
+                                                <span style="color: #a1a1aa; font-size: 0.7rem;">Page {c['page_number']}</span>
                                             </div>
-                                            <p style="color: #cbd5e1; font-size: 0.85rem; font-style: italic; margin: 0; line-height: 1.4;">"{c['chunk_text']}"</p>
+                                            <p style="color: #d4d4d8; font-size: 0.8rem; font-style: italic; margin: 0; line-height: 1.4;">"{c['chunk_text']}"</p>
                                         </div>
                                         """, unsafe_allow_html=True)
+
                             else:
                                 st.info("No explicit citations found in this draft.")
 
@@ -451,10 +415,11 @@ elif selected_page == "✍️ Drafting Lab":
         st.info("No documents indexed yet. Upload a document in the first tab.")
 
 
-# ─── Page 3: Review & Learning ───
-elif selected_page == "🔍 Review & Learning":
-    st.header("Review & Preference Learning")
+# ─── Tab 3: Review & Learning ───
+with tab3:
+    st.markdown("#### Review & Learning")
     st.markdown("Analyze draft quality and teach the AI your specific drafting style preferences.")
+
 
 
     if st.session_state.draft_text:
@@ -528,9 +493,10 @@ elif selected_page == "🔍 Review & Learning":
         st.info("Generate a draft first in the 'Generate Draft' tab.")
 
 
-# ─── Page 4: Dashboard ───
-elif selected_page == "📊 Dashboard":
-    st.header("System Intelligence Dashboard")
+# ─── Tab 4: Dashboard ───
+with tab4:
+    st.markdown("#### Intelligence Dashboard")
+
 
 
     # Row 1: High Level Metrics
