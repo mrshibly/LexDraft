@@ -169,10 +169,17 @@ def inject_custom_css():
     
     /* Info indicator */
     .stAlert [data-testid="stNotificationContentInfo"] {
-        color: #3b82f6 !important;
+        color: #a1a1aa !important;
+    }
+    [data-testid="stNotificationContentInfo"] div {
+        color: #a1a1aa !important;
+    }
+    .stAlert {
+        background: #18181b !important;
+        border: 1px solid #27272a !important;
     }
 
-
+    
     h1 {
         color: #fafafa !important;
         font-weight: 700 !important;
@@ -531,37 +538,26 @@ with tab4:
                 freq = r['frequency']
                 # Progress bar visualization for frequency
                 progress = min(freq / 5.0, 1.0) # Scale of 5
-                st.markdown(f"""
-<div style="margin-bottom: 1.5rem;">
-    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-        <span style="font-weight: 500; color: #fafafa; font-size: 0.85rem;">{r['rule']}</span>
-        <span style="color: #a1a1aa; font-size: 0.75rem;">Confidence: {freq}/5</span>
-    </div>
-    <div style="width: 100%; background: #27272a; height: 4px; border-radius: 2px;">
-        <div style="width: {progress*100}%; background: #fafafa; height: 100%; border-radius: 2px;"></div>
-    </div>
-</div>
-""", unsafe_allow_html=True)
+                st.markdown(f'<div style="margin-bottom: 1.5rem;"><div style="display: flex; justify-content: space-between; margin-bottom: 4px;"><span style="font-weight: 500; color: #fafafa; font-size: 0.85rem;">{r["rule"]}</span><span style="color: #a1a1aa; font-size: 0.75rem;">Confidence: {freq}/5</span></div><div style="width: 100%; background: #27272a; height: 4px; border-radius: 2px;"><div style="width: {progress*100}%; background: #fafafa; height: 100%; border-radius: 2px;"></div></div></div>', unsafe_allow_html=True)
+
 
         else:
             st.info("No drafting preferences learned yet. Submit edits in the Review tab to begin training.")
 
     with col_right:
-        st.subheader("⚙️ System Health")
-        st.markdown("""
-<div style="background: #18181b; border: 1px solid #27272a; padding: 20px; border-radius: 8px;">
-    <p style="margin: 0; color: #a1a1aa; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">API Engine</p>
-    <p style="margin: 0 0 1rem 0; font-weight: 600; color: #22c55e; font-size: 0.9rem;">● OPERATIONAL</p>
-    
-    <p style="margin: 0; color: #a1a1aa; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Vector Store</p>
-    <p style="margin: 0 0 1rem 0; font-weight: 600; color: #22c55e; font-size: 0.9rem;">● CONNECTED</p>
-    
-    <p style="margin: 0; color: #a1a1aa; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Preference Store</p>
-    <p style="margin: 0 0 1rem 0; font-weight: 600; color: #22c55e; font-size: 0.9rem;">● ACTIVE</p>
-    
-    <p style="margin: 0; color: #a1a1aa; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Model Provider</p>
-    <p style="margin: 0 0 0 0; font-weight: 600; color: #fafafa; font-size: 0.9rem;">Claude 3.5 Sonnet</p>
-</div>
-""", unsafe_allow_html=True)
+        health_html = (
+            '<div style="background: #18181b; border: 1px solid #27272a; padding: 20px; border-radius: 8px;">'
+            '<p style="margin: 0; color: #a1a1aa; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">API Engine</p>'
+            '<p style="margin: 0 0 1rem 0; font-weight: 600; color: #22c55e; font-size: 0.9rem;">● OPERATIONAL</p>'
+            '<p style="margin: 0; color: #a1a1aa; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Vector Store</p>'
+            '<p style="margin: 0 0 1rem 0; font-weight: 600; color: #22c55e; font-size: 0.9rem;">● CONNECTED</p>'
+            '<p style="margin: 0; color: #a1a1aa; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Preference Store</p>'
+            '<p style="margin: 0 0 1rem 0; font-weight: 600; color: #22c55e; font-size: 0.9rem;">● ACTIVE</p>'
+            '<p style="margin: 0; color: #a1a1aa; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Model Provider</p>'
+            '<p style="margin: 0 0 0 0; font-weight: 600; color: #fafafa; font-size: 0.9rem;">Claude 3.5 Sonnet</p>'
+            '</div>'
+        )
+        st.markdown(health_html, unsafe_allow_html=True)
+
 
 
