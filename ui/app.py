@@ -9,23 +9,36 @@ import subprocess
 import time
 import socket
 
-@st.cache_resource
+@st.cache_resource(show_spinner=False)
 def start_backend():
     """Start the FastAPI backend as a subprocess if not already running."""
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    try:
-        s.connect(('localhost', 8000))
-        s.close()
-    except Exception:
-        # Port 8000 is not listening, so start the backend
+    def is_port_open():
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            return s.connect_ex(('localhost', 8000)) == 0
+
+    if is_port_open():
+        return True
+
+    # Port 8000 is not listening, so start the backend
+    with open("backend.log", "w") as log_file:
         subprocess.Popen(
             ["python", "-m", "uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL
+            stdout=log_file,
+            stderr=subprocess.STDOUT
         )
-        time.sleep(3)  # Give it a moment to boot
+    
+    # Wait for the server to be ready (model loading can take 20-30s on cloud)
+    for _ in range(45):
+        if is_port_open():
+            return True
+        time.sleep(1)
+        
+    return False
 
-start_backend()
+if 'backend_started' not in st.session_state:
+    with st.spinner("Booting up AI models and backend API... (this takes ~20-30s on first load)"):
+        start_backend()
+    st.session_state.backend_started = True
 
 API_BASE = "http://localhost:8000/api/v1"
 
