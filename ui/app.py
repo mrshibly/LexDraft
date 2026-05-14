@@ -532,34 +532,36 @@ with tab4:
                 # Progress bar visualization for frequency
                 progress = min(freq / 5.0, 1.0) # Scale of 5
                 st.markdown(f"""
-                <div style="margin-bottom: 1.5rem;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-                        <span style="font-weight: 500; color: #f8fafc;">{r['rule']}</span>
-                        <span style="color: #94a3b8; font-size: 0.8rem;">Confidence: {freq}/5</span>
-                    </div>
-                    <div style="width: 100%; background: rgba(255,255,255,0.05); height: 6px; border-radius: 3px;">
-                        <div style="width: {progress*100}%; background: linear-gradient(90deg, #6366f1, #a855f7); height: 100%; border-radius: 3px;"></div>
-                    </div>
-                </div>
-                """, unsafe_allow_html=True)
+<div style="margin-bottom: 1.5rem;">
+    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
+        <span style="font-weight: 500; color: #fafafa; font-size: 0.85rem;">{r['rule']}</span>
+        <span style="color: #a1a1aa; font-size: 0.75rem;">Confidence: {freq}/5</span>
+    </div>
+    <div style="width: 100%; background: #27272a; height: 4px; border-radius: 2px;">
+        <div style="width: {progress*100}%; background: #fafafa; height: 100%; border-radius: 2px;"></div>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
         else:
             st.info("No drafting preferences learned yet. Submit edits in the Review tab to begin training.")
 
     with col_right:
         st.subheader("⚙️ System Health")
         st.markdown("""
-        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 16px;">
-            <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">API Engine</p>
-            <p style="margin: 0 0 1rem 0; font-weight: bold; color: #22c55e;">● OPERATIONAL</p>
-            
-            <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">Vector Store (ChromaDB)</p>
-            <p style="margin: 0 0 1rem 0; font-weight: bold; color: #22c55e;">● CONNECTED</p>
-            
-            <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">Preference Store (SQLite)</p>
-            <p style="margin: 0 0 1rem 0; font-weight: bold; color: #22c55e;">● ACTIVE</p>
-            
-            <p style="margin: 0; color: #94a3b8; font-size: 0.85rem;">Model Provider</p>
-            <p style="margin: 0 0 0 0; font-weight: bold; color: #38bdf8;">Claude 3.5 Sonnet</p>
-        </div>
-        """, unsafe_allow_html=True)
+<div style="background: #18181b; border: 1px solid #27272a; padding: 20px; border-radius: 8px;">
+    <p style="margin: 0; color: #a1a1aa; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">API Engine</p>
+    <p style="margin: 0 0 1rem 0; font-weight: 600; color: #22c55e; font-size: 0.9rem;">● OPERATIONAL</p>
+    
+    <p style="margin: 0; color: #a1a1aa; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Vector Store</p>
+    <p style="margin: 0 0 1rem 0; font-weight: 600; color: #22c55e; font-size: 0.9rem;">● CONNECTED</p>
+    
+    <p style="margin: 0; color: #a1a1aa; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Preference Store</p>
+    <p style="margin: 0 0 1rem 0; font-weight: 600; color: #22c55e; font-size: 0.9rem;">● ACTIVE</p>
+    
+    <p style="margin: 0; color: #a1a1aa; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Model Provider</p>
+    <p style="margin: 0 0 0 0; font-weight: 600; color: #fafafa; font-size: 0.9rem;">Claude 3.5 Sonnet</p>
+</div>
+""", unsafe_allow_html=True)
+
 
