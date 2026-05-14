@@ -151,13 +151,13 @@ Date: March 1, 2024"""
         # Save as image-based PDF
         output_path = os.path.join(OUTPUT_DIR, "contract_scan.pdf")
         scan_images[0].save(output_path, save_all=True, append_images=scan_images[1:])
-        print(f"  ✓ contract_scan.pdf ({len(scan_images)} pages)")
+        print(f"  [OK] contract_scan.pdf ({len(scan_images)} pages)")
     except Exception as e:
-        print(f"  ⚠ Could not create image PDF (Poppler needed): {e}")
+        print(f"  [WARN] Could not create image PDF (Poppler needed): {e}")
         # Fallback: just copy the native PDF
         import shutil
         shutil.copy(temp_pdf, os.path.join(OUTPUT_DIR, "contract_scan.pdf"))
-        print("  ✓ contract_scan.pdf (native fallback)")
+        print("  [OK] contract_scan.pdf (native fallback)")
 
     # Cleanup temp
     try:
@@ -230,7 +230,7 @@ def create_notice_typed():
         y -= 16
 
     c.save()
-    print("  ✓ notice_typed.pdf (1 page)")
+    print("  [OK] notice_typed.pdf (1 page)")
 
 
 def create_case_filing():
@@ -306,7 +306,7 @@ def create_case_filing():
     c.setFont("Helvetica", 8)
     c.drawCentredString(width/2, 0.5*inch, "Index No. 2024-054812 — Acme Corp. v. Globex LLC")
     c.save()
-    print("  ✓ case_filing.pdf")
+    print("  [OK] case_filing.pdf")
 
 
 def create_handwritten_notes():
@@ -366,7 +366,7 @@ def create_handwritten_notes():
 
     output_path = os.path.join(OUTPUT_DIR, "handwritten_notes.png")
     img.save(output_path)
-    print("  ✓ handwritten_notes.png")
+    print("  [OK] handwritten_notes.png")
 
 
 def create_edited_draft_sample():
@@ -407,7 +407,7 @@ The Agreement establishes a software development engagement where Acme Corporati
     output_path = os.path.join(OUTPUT_DIR, "edited_draft_sample.txt")
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(edited)
-    print("  ✓ edited_draft_sample.txt")
+    print("  [OK] edited_draft_sample.txt")
 
 
 def create_sample_docs_readme():
@@ -442,5 +442,5 @@ if __name__ == "__main__":
     create_contract_scan()  # Last because it may need poppler
 
     print("\n" + "=" * 50)
-    print("✅ All sample documents created in sample_docs/")
+    print("[OK] All sample documents created in sample_docs/")
     print("=" * 50)

@@ -14,19 +14,19 @@
   {
     "query_id": "q03",
     "query": "What is the termination clause?",
-    "relevant_chunk_indices": [2, 3],
+    "relevant_chunk_indices": [4, 5],
     "expected_answer_fragment": "30 days written notice"
   },
   {
     "query_id": "q04",
     "query": "What is the payment amount?",
-    "relevant_chunk_indices": [1],
+    "relevant_chunk_indices": [2],
     "expected_answer_fragment": "$150,000"
   },
   {
     "query_id": "q05",
     "query": "What is the governing law jurisdiction?",
-    "relevant_chunk_indices": [1, 2],
+    "relevant_chunk_indices": [4],
     "expected_answer_fragment": "New York"
   },
   {
@@ -38,25 +38,25 @@
   {
     "query_id": "q07",
     "query": "What are the software delivery obligations?",
-    "relevant_chunk_indices": [1],
+    "relevant_chunk_indices": [2, 3],
     "expected_answer_fragment": "June 1, 2024"
   },
   {
     "query_id": "q08",
     "query": "Who signed the agreement?",
-    "relevant_chunk_indices": [3],
+    "relevant_chunk_indices": [6],
     "expected_answer_fragment": "John Thompson"
   },
   {
     "query_id": "q09",
     "query": "What are the confidentiality obligations?",
-    "relevant_chunk_indices": [1, 2],
+    "relevant_chunk_indices": [2],
     "expected_answer_fragment": "5 years"
   },
   {
     "query_id": "q10",
     "query": "What is the dispute resolution mechanism?",
-    "relevant_chunk_indices": [2, 3],
+    "relevant_chunk_indices": [5],
     "expected_answer_fragment": "arbitration"
   }
 ]

@@ -27,7 +27,7 @@ console = Console()
 
 def run_demo():
     """Run the complete feedback loop demonstration."""
-    console.print(Panel("🏛 LexDraft — Feedback Loop Demonstration", style="bold blue"))
+    console.print(Panel("[LEX] LexDraft — Feedback Loop Demonstration", style="bold blue"))
 
     from config import validate
     validate()
@@ -57,7 +57,7 @@ def run_demo():
     console.print("\n[bold]Step 1/7:[/bold] Ingesting contract_scan.pdf...")
     contract_path = os.path.join(sample_dir, "contract_scan.pdf")
     if not os.path.exists(contract_path):
-        console.print("[red]❌ Run scripts/seed_sample_docs.py first[/red]")
+        console.print("[red][ERROR] Run scripts/seed_sample_docs.py first[/red]")
         return
 
     raw = load_document(contract_path)
@@ -69,7 +69,7 @@ def run_demo():
     metadatas = [m.to_dict() for _, m in chunks]
     vector_store.add_document(doc_id_1, chunk_texts, list(embeddings), metadatas)
     pref_store.save_document_record(record_1)
-    console.print(f"  ✅ Ingested: {len(chunks)} chunks indexed (doc_id={doc_id_1})")
+    console.print(f"  [OK] Ingested: {len(chunks)} chunks indexed (doc_id={doc_id_1})")
 
     # Step 2: Generate Draft A
     console.print("\n[bold]Step 2/7:[/bold] Generating Draft A (no learned preferences)...")
@@ -99,7 +99,8 @@ def run_demo():
     rule_table.add_column("Category", style="green")
     rule_table.add_column("Frequency", style="yellow")
     for r in rules:
-        rule_table.add_row(r.rule[:80], r.category, str(r.frequency))
+        sanitized_rule = r.rule.encode('ascii', 'ignore').decode('ascii')
+        rule_table.add_row(sanitized_rule[:80], r.category, str(r.frequency))
     console.print(rule_table)
 
     # Save feedback session
@@ -124,21 +125,22 @@ def run_demo():
     metadatas_2 = [m.to_dict() for _, m in chunks_2]
     vector_store.add_document(doc_id_2, chunk_texts_2, list(embeddings_2), metadatas_2)
     pref_store.save_document_record(record_2)
-    console.print(f"  ✅ Ingested: {len(chunks_2)} chunks indexed (doc_id={doc_id_2})")
+    console.print(f"  [OK] Ingested: {len(chunks_2)} chunks indexed (doc_id={doc_id_2})")
 
     # Step 6: Generate Draft B WITH learned rules
     console.print("\n[bold]Step 6/7:[/bold] Generating Draft B (with learned preferences)...")
     pref_rules = get_preference_rules_list("case_fact_summary", pref_store)
     console.print(f"  Applying {len(pref_rules)} learned preferences:")
     for p in pref_rules:
-        console.print(f"    • {p[:80]}")
+        sanitized_p = p.encode('ascii', 'ignore').decode('ascii')
+        console.print(f"    - {sanitized_p[:80]}")
 
     retrieval_b = retrieve(doc_id_2, "case_fact_summary", record_2, vector_store, embedder)
     draft_b = generate_draft(retrieval_b, record_2, pref_rules, case_fact_summary)
     console.print(Panel(draft_b.draft_text[:500] + "...", title="Draft B (first 500 chars)"))
 
     # Save Draft B
-    with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "sample_outputs", "draft_b_with_rules.md"), "w") as f:
+    with open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "sample_outputs", "draft_b_with_rules.md"), "w", encoding="utf-8") as f:
         f.write(draft_b.draft_text)
 
     # Step 7: Comparison
@@ -154,7 +156,7 @@ def run_demo():
     comparison.add_row("Draft B Citations", str(len(draft_b.citations_used)))
     console.print(comparison)
 
-    console.print(Panel("✅ Demo complete. See sample_outputs/ for full drafts.", style="bold green"))
+    console.print(Panel("[OK] Demo complete. See sample_outputs/ for full drafts.", style="bold green"))
 
 
 if __name__ == "__main__":

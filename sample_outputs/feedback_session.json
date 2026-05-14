@@ -1,0 +1,153 @@
+{
+  "session_id": "93f00662400c40468a5444fecb4b6b6d",
+  "rules_extracted": 19,
+  "diff_analysis": {
+    "structural_changes": [
+      "Place timeline section before parties section",
+      "Remove header numbering and use ## formatting instead of # with numbered subsections"
+    ],
+    "tone_changes": [
+      "Use more concise, direct language without unnecessary descriptive phrases",
+      "Adopt formal legal document tone with precise terminology"
+    ],
+    "content_additions": [
+      "Include matter number and governing law in the matter overview",
+      "Add section references for contractual obligations",
+      "Include party designations as Respondent where applicable"
+    ],
+    "content_removals": [
+      "Remove witness information from parties table when not essential",
+      "Eliminate redundant clauses and obligations that don't add substantive value",
+      "Remove detailed execution information that doesn't impact core dispute"
+    ],
+    "formatting_changes": [
+      "Use warning symbols (\u26a0) to highlight unsupported claims",
+      "Consolidate related obligations into fewer, more focused items",
+      "Streamline parties table to essential roles only"
+    ],
+    "learned_rules": [
+      "Always include matter number and governing law in the opening overview",
+      "Prioritize chronological timeline over detailed party information in document structure",
+      "Focus obligations section on core contractual duties rather than comprehensive clause listing",
+      "Use section references when citing specific contractual provisions",
+      "Clearly mark any claims not supported by available documentation",
+      "Eliminate non-essential witness and execution details unless they relate to the dispute"
+    ]
+  },
+  "rules": [
+    {
+      "rule": "Place timeline section before parties section",
+      "category": "structural",
+      "frequency": 1,
+      "confidence": 1.0
+    },
+    {
+      "rule": "Remove header numbering and use ## formatting instead of # with numbered sections",
+      "category": "structural",
+      "frequency": 2,
+      "confidence": 1.0
+    },
+    {
+      "rule": "Use more concise, direct language without unnecessary descriptive phrases",
+      "category": "tone",
+      "frequency": 1,
+      "confidence": 1.0
+    },
+    {
+      "rule": "Adopt formal legal document tone with precise terminology",
+      "category": "tone",
+      "frequency": 1,
+      "confidence": 1.0
+    },
+    {
+      "rule": "Add governing law information in matter overview",
+      "category": "content",
+      "frequency": 2,
+      "confidence": 1.0
+    },
+    {
+      "rule": "Add section references for contractual obligations",
+      "category": "content",
+      "frequency": 1,
+      "confidence": 1.0
+    },
+    {
+      "rule": "Include party designations as Respondent where applicable",
+      "category": "content",
+      "frequency": 1,
+      "confidence": 1.0
+    },
+    {
+      "rule": "Remove witness information from key parties table when not essential",
+      "category": "content",
+      "frequency": 3,
+      "confidence": 1.0
+    },
+    {
+      "rule": "Eliminate redundant clauses and obligations that don't add substantive value",
+      "category": "content",
+      "frequency": 1,
+      "confidence": 1.0
+    },
+    {
+      "rule": "Remove detailed execution information that doesn't impact core dispute",
+      "category": "content",
+      "frequency": 1,
+      "confidence": 1.0
+    },
+    {
+      "rule": "Add warning symbols (\u26a0) for unsupported claims",
+      "category": "formatting",
+      "frequency": 3,
+      "confidence": 1.0
+    },
+    {
+      "rule": "Consolidate related obligations into fewer, more focused items",
+      "category": "formatting",
+      "frequency": 1,
+      "confidence": 1.0
+    },
+    {
+      "rule": "Streamline parties table to essential roles only",
+      "category": "formatting",
+      "frequency": 1,
+      "confidence": 1.0
+    },
+    {
+      "rule": "Always include matter number and governing law in the opening overview",
+      "category": "general",
+      "frequency": 1,
+      "confidence": 1.0
+    },
+    {
+      "rule": "Prioritize chronological information by placing timeline early in document structure",
+      "category": "general",
+      "frequency": 3,
+      "confidence": 1.0
+    },
+    {
+      "rule": "Limit obligations section to core contractual duties rather than comprehensive clause listing",
+      "category": "general",
+      "frequency": 3,
+      "confidence": 1.0
+    },
+    {
+      "rule": "Use section references when citing specific contract provisions",
+      "category": "general",
+      "frequency": 2,
+      "confidence": 1.0
+    },
+    {
+      "rule": "Clearly mark any claims not supported by available documentation",
+      "category": "general",
+      "frequency": 1,
+      "confidence": 1.0
+    },
+    {
+      "rule": "Eliminate non-essential witness and execution details unless they relate to the dispute",
+      "category": "general",
+      "frequency": 1,
+      "confidence": 1.0
+    }
+  ]
+}

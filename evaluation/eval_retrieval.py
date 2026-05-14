@@ -58,7 +58,7 @@ def run_eval():
     doc_id = hashlib.md5("contract_scan.pdf".encode()).hexdigest()[:8]
     record = pref_store.get_document_record(doc_id)
     if not record:
-        console.print("[red]❌ Ingest contract_scan.pdf first (run demo script)[/red]")
+        console.print("[red][ERROR] Ingest contract_scan.pdf first (run demo script)[/red]")
         return
 
     results_table = Table(title="Retrieval Metrics")
@@ -73,8 +73,10 @@ def run_eval():
         query_text = q["query"]
         relevant = q["relevant_chunk_indices"]
 
-        result = retrieve(doc_id, "case_fact_summary", record, vector_store, embedder, top_k=5)
-        retrieved_indices = [c.metadata.chunk_index for c in result.ranked_chunks]
+        # Direct vector query for the specific question
+        q_emb = embedder.encode_single(query_text)
+        raw_results = vector_store.query(doc_id, q_emb, top_k=5)
+        retrieved_indices = [int(r["metadata"]["chunk_index"]) for r in raw_results]
 
         p3 = precision_at_k(retrieved_indices, relevant, 3)
         r3 = recall_at_k(retrieved_indices, relevant, 3)
