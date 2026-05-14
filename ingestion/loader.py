@@ -22,12 +22,20 @@ def detect_source_type(file_path: str) -> str:
     
     Returns one of: 'native_pdf', 'scanned_pdf', 'image', 'text'.
     """
-    import magic
+    import mimetypes
 
     if not os.path.exists(file_path):
         raise FileNotFoundError(f"File not found: {file_path}")
 
-    mime = magic.from_file(file_path, mime=True)
+    mime, _ = mimetypes.guess_type(file_path)
+    if not mime:
+        ext = os.path.splitext(file_path)[1].lower()
+        if ext == ".pdf": mime = "application/pdf"
+        elif ext in (".png", ".jpg", ".jpeg"): mime = "image/png"
+        elif ext in (".tif", ".tiff"): mime = "image/tiff"
+        elif ext == ".txt": mime = "text/plain"
+        else: mime = "application/octet-stream"
+
     logger.info(f"Detected MIME type: {mime} for {file_path}")
 
     if mime == "application/pdf":

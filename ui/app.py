@@ -5,6 +5,27 @@ Four tabs: Upload & Process, Generate Draft, Review & Edit, System Status.
 import streamlit as st
 import httpx
 import json
+import subprocess
+import time
+import socket
+
+@st.cache_resource
+def start_backend():
+    """Start the FastAPI backend as a subprocess if not already running."""
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    try:
+        s.connect(('localhost', 8000))
+        s.close()
+    except Exception:
+        # Port 8000 is not listening, so start the backend
+        subprocess.Popen(
+            ["python", "-m", "uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+        time.sleep(3)  # Give it a moment to boot
+
+start_backend()
 
 API_BASE = "http://localhost:8000/api/v1"
 
